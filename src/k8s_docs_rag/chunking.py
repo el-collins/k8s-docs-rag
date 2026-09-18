@@ -125,10 +125,12 @@ def chunk_document(
     overlap_words: int = OVERLAP_WORDS,
 ) -> list[Chunk]:
     chunks: list[Chunk] = []
-    for heading, section_text in _split_by_headers(doc.body):
+    for section_index, (heading, section_text) in enumerate(_split_by_headers(doc.body)):
         parts = _split_long_text(section_text, max_words, overlap_words)
         for part_index, part_text in enumerate(parts):
-            chunk_id = f"{doc.path}::{_slugify(heading or doc.title)}::{part_index}"
+            # section_index disambiguates sections whose headings slugify to
+            # the same text (e.g. two "Note" or "Example" subsections).
+            chunk_id = f"{doc.path}::{section_index}-{_slugify(heading or doc.title)}::{part_index}"
             chunks.append(
                 Chunk(
                     id=chunk_id,

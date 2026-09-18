@@ -81,6 +81,22 @@ def test_load_document_and_chunk(tmp_path: Path):
         assert chunk.doc_path == "docs/concepts/pods.md"
 
 
+def test_chunk_document_ids_are_unique_when_headings_repeat():
+    from k8s_docs_rag.models import Document
+
+    doc = Document(
+        path="docs/x.md",
+        url="https://kubernetes.io/docs/x/",
+        title="X",
+        body="## Note\n\nfirst note.\n\n## Something else\n\nmiddle section.\n\n## Note\n\nsecond note, same heading text as the first.",
+    )
+
+    chunks = chunk_document(doc)
+    ids = [c.id for c in chunks]
+
+    assert len(ids) == len(set(ids)), f"duplicate chunk ids: {ids}"
+
+
 def test_chunk_document_splits_long_sections():
     from k8s_docs_rag.models import Document
 
