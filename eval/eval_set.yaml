@@ -1,0 +1,109 @@
+# Versioned evaluation set for k8s-docs-rag.
+#
+# type: "answer"  -> expect a grounded answer; `source_contains` is a substring
+#                    that must appear in at least one retrieved chunk's URL.
+# type: "abstain"  -> expect the model to abstain (no `source_contains`,
+#                     since by construction no retrieved doc should support it).
+version: 1
+cases:
+  - id: what-is-a-pod
+    type: answer
+    question: "What is a Pod in Kubernetes?"
+    source_contains: "/docs/concepts/workloads/pods/"
+
+  - id: pod-lifecycle
+    type: answer
+    question: "What are the possible phases of a Pod's lifecycle?"
+    source_contains: "/docs/concepts/workloads/pods/pod-lifecycle/"
+
+  - id: deployment-purpose
+    type: answer
+    question: "What does a Deployment do in Kubernetes?"
+    source_contains: "/docs/concepts/workloads/controllers/deployment/"
+
+  - id: replicaset-vs-deployment
+    type: answer
+    question: "What is the relationship between a ReplicaSet and a Deployment?"
+    source_contains: "/docs/concepts/workloads/controllers/"
+
+  - id: service-purpose
+    type: answer
+    question: "What problem does a Kubernetes Service solve?"
+    source_contains: "/docs/concepts/services-networking/service/"
+
+  - id: configmap-purpose
+    type: answer
+    question: "What is a ConfigMap used for?"
+    source_contains: "/docs/concepts/configuration/configmap/"
+
+  - id: secret-purpose
+    type: answer
+    question: "How does Kubernetes store sensitive configuration data like passwords?"
+    source_contains: "/docs/concepts/configuration/secret/"
+
+  - id: namespace-purpose
+    type: answer
+    question: "What is a Namespace and why would you use more than one?"
+    source_contains: "/docs/concepts/overview/working-with-objects/namespaces/"
+
+  - id: pod-disruption-budget
+    type: answer
+    question: "What does a PodDisruptionBudget control?"
+    source_contains: "/docs/concepts/workloads/pods/disruptions/"
+
+  - id: liveness-vs-readiness-probe
+    type: answer
+    question: "What is the difference between a liveness probe and a readiness probe?"
+    source_contains: "/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/"
+
+  - id: horizontal-pod-autoscaler
+    type: answer
+    question: "What does the HorizontalPodAutoscaler do?"
+    source_contains: "/docs/tasks/run-application/horizontal-pod-autoscale"
+
+  - id: set-memory-limit
+    type: answer
+    question: "How do I set a memory limit on a container?"
+    source_contains: "/docs/tasks/configure-pod-container/assign-memory-resource/"
+
+  - id: rolling-update-deployment
+    type: answer
+    question: "How do I perform a rolling update of a Deployment?"
+    source_contains: "/docs/tasks/run-application/rolling-update-replication-controller/"
+
+  - id: taints-and-tolerations
+    type: answer
+    question: "What are taints and tolerations used for?"
+    source_contains: "/docs/concepts/scheduling-eviction/taint-and-toleration/"
+
+  - id: persistent-volume-claim
+    type: answer
+    question: "What is a PersistentVolumeClaim?"
+    source_contains: "/docs/concepts/storage/persistent-volumes/"
+
+  - id: statefulset-purpose
+    type: answer
+    question: "Why would you use a StatefulSet instead of a Deployment?"
+    source_contains: "/docs/concepts/workloads/controllers/statefulset/"
+
+  - id: network-policy-purpose
+    type: answer
+    question: "What does a NetworkPolicy control?"
+    source_contains: "/docs/concepts/services-networking/network-policies/"
+
+  - id: init-containers
+    type: answer
+    question: "What is an init container and when would you use one?"
+    source_contains: "/docs/concepts/workloads/pods/init-containers/"
+
+  - id: out-of-scope-billing
+    type: abstain
+    question: "How much does Google Kubernetes Engine Autopilot cost per hour?"
+
+  - id: out-of-scope-unrelated
+    type: abstain
+    question: "What's the best way to file my income taxes this year?"
+
+  - id: out-of-scope-competitor-comparison
+    type: abstain
+    question: "How does Kubernetes' pricing compare to AWS Nomad?"
